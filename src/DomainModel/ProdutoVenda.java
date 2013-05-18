@@ -14,6 +14,7 @@ public class ProdutoVenda {
     int codprodvenda;
     Produto produto;
     int quantidade;
+    boolean ativo;
 
     public int getCodprodvenda() {
         return codprodvenda;
@@ -37,6 +38,14 @@ public class ProdutoVenda {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+    
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
@@ -66,7 +75,10 @@ public class ProdutoVenda {
         }
         return true;
     }
-
+@Override
+    public String toString() {
+        return produto.getNome();
+    }
     
 
     

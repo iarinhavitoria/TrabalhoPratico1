@@ -4,6 +4,8 @@
  */
 package InterfaceUsuario;
 
+import DataAccess.MetodoDAO;
+import DomainModel.MetodoPags;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmCadastroMetodo extends javax.swing.JFrame {
 
+    MetodoDAO dao = new MetodoDAO();
     /**
      * Creates new form FrmCadastroMetodo
      */
@@ -28,9 +31,7 @@ public class FrmCadastroMetodo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCodigo = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnLimparCampos = new javax.swing.JButton();
@@ -38,8 +39,6 @@ public class FrmCadastroMetodo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Metodos de Pagamento");
-
-        lblCodigo.setText("Codigo:");
 
         lblNome.setText("Nome:");
 
@@ -52,6 +51,11 @@ public class FrmCadastroMetodo extends javax.swing.JFrame {
         btnSalvar.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 btnSalvarStateChanged(evt);
+            }
+        });
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
             }
         });
 
@@ -73,44 +77,35 @@ public class FrmCadastroMetodo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNome))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 22, Short.MAX_VALUE)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimparCampos)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addGap(44, 44, 44))))
+                .addComponent(lblNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLimparCampos)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(btnLimparCampos)
-                    .addComponent(btnCancelar))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnLimparCampos)
+                        .addComponent(btnCancelar)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,7 +114,7 @@ public class FrmCadastroMetodo extends javax.swing.JFrame {
     private void btnLimparCamposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimparCamposMouseClicked
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja realmente limpar os campos?") 
                 == 0){
-            txtCodigo.setText(null);
+            
             txtNome.setText(null);
             JOptionPane.showMessageDialog(rootPane, "Pronto!");
         }
@@ -137,22 +132,31 @@ public class FrmCadastroMetodo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarStateChanged
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
-        int cod = Integer.parseInt(txtCodigo.getText());
-        String tam = txtNome.getText();
-        if(cod>0){
-            if(tam.length()>3 && tam.length()<250){
-                if (JOptionPane.showConfirmDialog(rootPane, "Deseja salvar todos os dados?") == 0){
-                    JOptionPane.showMessageDialog(rootPane, "Dados salvos com sucesso!");
-                }
-            }else{
-            JOptionPane.showMessageDialog(rootPane, "Nome Invalido!");
-        }
-            }else{
-            JOptionPane.showMessageDialog(rootPane, "Codigo Invalido!");
-        }
         
+        MetodoPags mpag = new MetodoPags();
+        mpag.setNome(txtNome.getText());
+        try {
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Salvar?") == 0) {
+                
+                if (dao.Salvar(mpag)) {
+                    JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha ao salvar! Consulte o administrador do sistema!");
+                }
+
+            } else {                
+                JOptionPane.showMessageDialog(rootPane, "Operação cancelada!");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao salvar! Consulte o administrador do sistema!");
+        }
             
     }//GEN-LAST:event_btnSalvarMouseClicked
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,9 +197,9 @@ public class FrmCadastroMetodo extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+
+    
 }

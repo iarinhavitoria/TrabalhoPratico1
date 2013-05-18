@@ -36,13 +36,11 @@ public class FrmCadastroCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         lblNome = new javax.swing.JLabel();
-        lblCodigo = new javax.swing.JLabel();
         lblCPF = new javax.swing.JLabel();
         lblRG = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         lblEndereco = new javax.swing.JLabel();
         lblTelefone = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         txtRG = new javax.swing.JTextField();
         txtCPF = new javax.swing.JTextField();
@@ -57,8 +55,6 @@ public class FrmCadastroCliente extends javax.swing.JFrame {
         setTitle("Cadastro de Cliente");
 
         lblNome.setText("Nome:");
-
-        lblCodigo.setText("Codigo:");
 
         lblCPF.setText("CPF:");
 
@@ -95,8 +91,8 @@ public class FrmCadastroCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,26 +111,20 @@ public class FrmCadastroCliente extends javax.swing.JFrame {
                                 .addComponent(lblCPF)
                                 .addComponent(lblRG)
                                 .addComponent(lblEmail)
-                                .addComponent(lblEndereco)
-                                .addComponent(lblCodigo))
+                                .addComponent(lblEndereco))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtNome)
-                                .addComponent(txtRG, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                                .addComponent(txtRG)
                                 .addComponent(txtCPF)
                                 .addComponent(txtEmail)
-                                .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                                .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigo)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,7 +153,7 @@ public class FrmCadastroCliente extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnLimparCampos)
                     .addComponent(btnCancelar))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -264,14 +254,12 @@ public class FrmCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel lblCPF;
-    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblRG;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTextField txtCPF;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;

@@ -162,7 +162,6 @@ public class FrmCadastroCliente extends javax.swing.JFrame {
     private void btnLimparCamposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimparCamposMouseClicked
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja realmente limpar os campos?")
                 == 0) {
-            txtCodigo.setText(null);
             txtNome.setText(null);
             txtCPF.setText(null);
             txtRG.setText(null);

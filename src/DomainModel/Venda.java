@@ -17,6 +17,10 @@ public class Venda {
     int codvenda;
     Date data;
     double valortotal;
+    int codcliente;
+    int codusuario;
+    int codmetodo;
+    int codprodvenda;
     List<ProdutoVenda> produto;
     int cliente;
     
@@ -59,7 +63,42 @@ public class Venda {
 
     public void setValortotal(float valortotal) {
         this.valortotal = valortotal;
+        
     }
+
+    public int getCodcliente() {
+        return codcliente;
+    }
+
+    public void setCodcliente(int codcliente) {
+        this.codcliente = codcliente;
+    }
+
+    public int getCodusuario() {
+        return codusuario;
+    }
+
+    public void setCodusuario(int codusuario) {
+        this.codusuario = codusuario;
+    }
+
+    public int getCodmetodo() {
+        return codmetodo;
+    }
+
+    public void setCodmetodo(int codmetodo) {
+        this.codmetodo = codmetodo;
+    }
+
+    public int getCodprodvenda() {
+        return codprodvenda;
+    }
+
+    public void setCodprodvenda(int codprodvenda) {
+        this.codprodvenda = codprodvenda;
+    }
+    
+    
 
     public List<ProdutoVenda> getProduto() {
         return produto;

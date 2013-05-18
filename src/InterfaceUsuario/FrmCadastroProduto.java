@@ -4,6 +4,8 @@
  */
 package InterfaceUsuario;
 
+import DataAccess.ProdutoDAO;
+import DomainModel.Produto;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,14 +13,18 @@ import javax.swing.JOptionPane;
  * @author iara
  */
 public class FrmCadastroProduto extends javax.swing.JFrame {
+    ProdutoDAO dao;
+    Produto produto;
 
     /**
      * Creates new form FrmCadastroProduto
      */
     public FrmCadastroProduto() {
         initComponents();
+        
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,12 +34,10 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCodigo = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         lblValorCompra = new javax.swing.JLabel();
         lblValorVenda = new javax.swing.JLabel();
         lblEstoque = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         txtValorCompra = new javax.swing.JTextField();
         txtValorVenda = new javax.swing.JTextField();
@@ -44,8 +48,6 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Produtos");
-
-        lblCodigo.setText("Codigo:");
 
         lblNome.setText("Nome:");
 
@@ -81,16 +83,12 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNome))
-                        .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblNome)
+                        .addGap(100, 100, 100)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblValorCompra)
@@ -98,15 +96,19 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblValorVenda, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtValorCompra)
-                            .addComponent(txtValorVenda)
-                            .addComponent(txtEstoque)
-                            .addComponent(btnLimparCampos))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(btnLimparCampos)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,10 +116,6 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNome)
                             .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,7 +135,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnLimparCampos)
                     .addComponent(btnCancelar))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,7 +144,7 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     private void btnLimparCamposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimparCamposMouseClicked
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja realmente limpar os campos?")
                 == 0) {
-            txtCodigo.setText(null);
+            
             txtNome.setText(null);
             txtValorCompra.setText(null);
             txtValorVenda.setText(null);
@@ -163,6 +161,13 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
+        dao = new ProdutoDAO();
+        produto = new Produto();
+        produto.setNome(txtNome.getText());
+        produto.setValorcompra(Double.parseDouble(txtValorCompra.getText()));
+        produto.setValorvenda(Double.parseDouble(txtValorVenda.getText()));
+        produto.setEstoque(Integer.parseInt(txtEstoque.getText()));
+        
         String comp = txtNome.getText();
         int est = Integer.parseInt(txtEstoque.getText());
         double vc = Double.parseDouble(txtValorCompra.getText());
@@ -171,8 +176,16 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         if (comp.length()>3 && comp.length()<250){
             if (est > 0){
                 if (vc>0 && vv>0){
-                    if (JOptionPane.showConfirmDialog(rootPane, "Deseja salvar todos os dados?") == 0){
-                        JOptionPane.showMessageDialog(rootPane, "Dados salvos com sucesso!");
+                    try{
+                        if (JOptionPane.showConfirmDialog(rootPane, "Deseja salvar todos os dados?") == 0){
+                            if (dao.Salvar(produto)) {
+                                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Falha ao salvar! Consulte o administrador do sistema!");
+                            }
+                        }
+                    }catch (Exception ex) {
+                        JOptionPane.showMessageDialog(rootPane, "Nao foi possivel salvar!");
                     }
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "Valor invalido!");
@@ -183,6 +196,8 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "Nome invalido");
         }
+        
+        
     }//GEN-LAST:event_btnSalvarMouseClicked
 
     /**
@@ -214,8 +229,9 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new FrmCadastroProduto().setVisible(true);
+                
             }
         });
     }
@@ -223,12 +239,10 @@ public class FrmCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblEstoque;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblValorCompra;
     private javax.swing.JLabel lblValorVenda;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtValorCompra;

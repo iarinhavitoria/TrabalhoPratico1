@@ -4,8 +4,6 @@
  */
 package DomainModel;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,9 +15,9 @@ public class Clientes {
     String nome;
     String cpf;
     String rg;
-    List <Telefones> telefone;
-    List <Enderecos> endereco;
-    List <Emails> email;
+    String telefone;
+    String email;
+    String endereco;
   
     /**
      *
@@ -29,9 +27,9 @@ public class Clientes {
         nome = "";
         cpf = "";
         rg = "";
-        email = new LinkedList <> ();
-        telefone = new LinkedList <> ();
-        endereco = new LinkedList <> ();
+        email = "";
+        telefone = "";
+        endereco = "";
         
         
     }
@@ -40,11 +38,11 @@ public class Clientes {
         return codCliente;
     }
 
-    public void setCodCliente(int codCliente, int v) {
-        if (v>1){
-            codCliente = v;
-        }
+    public void setCodCliente(int codCliente) {
+        this.codCliente = codCliente;
     }
+
+    
 
     public String getNome() {
         return nome;
@@ -76,11 +74,10 @@ public class Clientes {
         return true;
     }
 
-    public void setNome(String nom) throws Exception {
+    public void setNome(String nom) {
         if (nom.length()>3 && nom.length()<250){
             nome = nom;
         }
-        throw new Exception ("Nao podem haver nomes com menos de 3 letras e mais do que 250 letras");
     }
 
     @Override
@@ -88,67 +85,46 @@ public class Clientes {
         return "Cliente{" + "codigo=" + codCliente + ", nome=" + nome + '}';
     }
 
-    /**
-     *
-     * @return
-     */
-    public List<Emails> getEmails() {
-        return email;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setEmails(List<Emails> emails) {
-        this.email = emails;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public List<Telefones> getTelefones() {
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefones(List<Telefones> telefones) {
-        this.telefone = telefones;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
-    /**
-     *
-     * @return
-     */
-    public List<Enderecos> getEnderecos() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEndereco() {
         return endereco;
     }
 
-    public void setEnderecos(List<Enderecos> endereco) {
+    public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
     
-    public void addEmail(Emails obj){
-        if (!email.contains(obj)){
-            email.add(obj);
-        }
-    }
-    public void removeEmail(Emails obj){
-        if (email.contains(obj)){
-            email.remove(obj);
-        }
-    }
-    public void addTelefones(Telefones obj){
-        if (!telefone.contains(obj)){
-            telefone.add(obj);
-        }
-    }
-    public void removeTelefone(Telefones obj){
-        if (telefone.contains(obj)){
-            telefone.remove(obj);
-        }
-    }
-    public void addEndereco(Enderecos obj){
-        if (!endereco.contains(obj)){
-            endereco.add(obj);
-        }
-    }
-    public void removeEndereco(Enderecos obj){
-        if (endereco.contains(obj)){
-            endereco.remove(obj);
-        }
-    }
     
 }

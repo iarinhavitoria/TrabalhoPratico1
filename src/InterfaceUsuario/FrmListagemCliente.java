@@ -4,6 +4,12 @@
  */
 package InterfaceUsuario;
 
+import DataAccess.ClienteDAO;
+import DomainModel.Clientes;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,28 +18,43 @@ import javax.swing.table.DefaultTableModel;
  * @author iara
  */
 public class FrmListagemCliente extends javax.swing.JFrame {
+    
+    ClienteDAO dao;
 
     /**
      * Creates new form FrmListagemCliente
      */
-    public FrmListagemCliente() {
+    public FrmListagemCliente() throws Exception {
         initComponents();
-        configuraTabelaCliente();
+        dao = new ClienteDAO();
+        List <Clientes> cliente = dao.listarTodos();
+        configuraTabelaCliente(cliente);
     
     }
-
-    private void configuraTabelaCliente() {
+    
+    private void configuraTabelaCliente(List <Clientes> cl) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Codigo");
         model.addColumn("Nome");
-        model.addColumn("RG");
         model.addColumn("CPF");
-        model.addColumn("Email");
+        model.addColumn("RG");
+        model.addColumn("Endereco");
         model.addColumn("Telefone");
-        model.addColumn("Endereço");
-
-
+        model.addColumn("Emails");
+        
+        for (Clientes cli : cl){
+            Vector valor = new Vector();
+            valor.add(0, cli.getCodCliente());
+            valor.add(1, cli.getNome());
+            valor.add(2, cli.getCpf());
+            valor.add(3, cli.getRg());
+            valor.add(4, cli.getEndereco());
+            valor.add(5, cli.getTelefone());
+            valor.add(6, cli.getEmail());
+            model.addRow(valor);
+        }
         tblCliente.setModel(model);
+        tblCliente.repaint();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,9 +85,19 @@ public class FrmListagemCliente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCliente);
 
         btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -91,8 +122,8 @@ public class FrmListagemCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,6 +147,45 @@ public class FrmListagemCliente extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        // TODO add your handling code here:
+        
+        try {       
+            
+            Clientes cl = new Clientes();
+            cl.setNome(txtNome.getText());
+            List<Clientes> cli = dao.buscar(cl);
+        
+            configuraTabelaCliente(cli);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(FrmListagemCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
+        // TODO add your handling code here:
+
+        
+        
+            
+        try {
+            FrmEditarCliente telaEditar = new FrmEditarCliente();
+            telaEditar.setVisible(true);
+            Object valor = tblCliente.getValueAt( tblCliente.getSelectedRow(), 0);
+            Clientes cliente = new Clientes();
+            cliente = dao.Abrir((int)valor);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(FrmListagemCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+       
+        
+        
+    }//GEN-LAST:event_tblClienteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -148,7 +218,11 @@ public class FrmListagemCliente extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmListagemCliente().setVisible(true);
+                try {
+                    new FrmListagemCliente().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmListagemCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -159,4 +233,4 @@ public class FrmListagemCliente extends javax.swing.JFrame {
     private javax.swing.JTable tblCliente;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
-}
+}                                       

@@ -4,8 +4,10 @@
  */
 package InterfaceUsuario;
 
+import DataAccess.MetodoDAO;
 import DomainModel.MetodoPags;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,29 +20,31 @@ public class FrmListagemMetodo extends javax.swing.JFrame {
     /**
      * Creates new form FrmListagemMetodo
      */
-    List<MetodoPags> metodopag;
+    MetodoPags mp = new MetodoPags();
+    MetodoDAO dao;
     
     public FrmListagemMetodo() {
         initComponents();
-        configuraCamposTabela();
-       
-        
-        
-        
-    }
+        dao = new MetodoDAO();
+        List<MetodoPags> metodopag = dao.listarTodos();
+        configuraTabela(metodopag);
+     }
     
-    private void configuraCamposTabela() {
-        
+    private void configuraTabela(List<MetodoPags> l) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Codigo");
-        model.addColumn("Metodo de Pagamento");
+        model.addColumn("Nome");
+        
+        for (MetodoPags mp : l) {
+            Vector valor = new Vector();
+            valor.add(0, mp.getCodMetodo());
+            valor.add(1, mp.getNome());
+            model.addRow(valor);
+        }
         tblMetodo.setModel(model);
-    }
-    
-    
-    
-    
-
+        tblMetodo.repaint();
+        
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,9 +74,19 @@ public class FrmListagemMetodo extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblMetodo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMetodoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblMetodo);
 
         btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,17 +102,17 @@ public class FrmListagemMetodo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,6 +137,24 @@ public class FrmListagemMetodo extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        // TODO add your handling code here:
+        MetodoPags mpa = new MetodoPags();
+        mpa.setNome(txtNome.getText());
+        
+        List<MetodoPags> l = dao.buscar(mpa);
+        
+        configuraTabela(l);
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void tblMetodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMetodoMouseClicked
+        // TODO add your handling code here:
+        Object valor = tblMetodo.getValueAt( tblMetodo.getSelectedRow(), 0);
+        MetodoPags mpags = dao.Abrir((int)valor);
+        FrmEditarMetodo janela = new FrmEditarMetodo(mpags, dao);
+        janela.setVisible(true);
+    }//GEN-LAST:event_tblMetodoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -161,4 +193,4 @@ public class FrmListagemMetodo extends javax.swing.JFrame {
     private javax.swing.JTable tblMetodo;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
-}
+}                                     

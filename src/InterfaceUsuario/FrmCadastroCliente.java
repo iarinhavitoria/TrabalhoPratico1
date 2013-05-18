@@ -4,12 +4,10 @@
  */
 package InterfaceUsuario;
 
+import DataAccess.ClienteDAO;
 import DomainModel.Clientes;
-import DomainModel.Emails;
-import DomainModel.Enderecos;
-import DomainModel.Telefones;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,19 +15,14 @@ import javax.swing.JOptionPane;
  * @author iara
  */
 public class FrmCadastroCliente extends javax.swing.JFrame {
-        Clientes clientes;
-        List<Enderecos> endereco;
-        List<Emails> email;
-        List<Telefones> telefone;
+        Clientes cliente;
+        ClienteDAO dao = new ClienteDAO();
     /**
      * Creates new form FrmCadastroCliente
      */
     public FrmCadastroCliente() {
         initComponents();
-        clientes = new Clientes();
-        endereco = new LinkedList<>();
-        email = new LinkedList<>();
-        telefone = new LinkedList<>();
+        cliente = new Clientes();
 
     }
 
@@ -200,13 +193,34 @@ public class FrmCadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
-        String tam = txtNome.getText();
-        if(tam.length()>3 && tam.length()<250){
-            if (JOptionPane.showConfirmDialog(rootPane, "Deseja salvar todos os dados?") == 0){
-                JOptionPane.showMessageDialog(rootPane, "Dados salvos com sucesso!");
+        Clientes cl = new Clientes();
+        try {
+            cl.setNome(txtNome.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(FrmCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cl.setCpf(txtCPF.getText());
+        cl.setRg(txtRG.getText());
+        cl.setTelefone(txtTelefone.getText());
+        cl.setEmail(txtEmail.getText());
+        cl.setEndereco(txtEndereco.getText());
+        
+        
+        try {
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Salvar?") == 0) {
+                
+                if (dao.Salvar(cl)) {
+                    JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha ao salvar! Consulte o administrador do sistema!");
+                }
+
+            } else {                
+                JOptionPane.showMessageDialog(rootPane, "Operação cancelada!");
             }
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Nome Invalido!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao salvar! Consulte o administrador do sistema!");
         }
     }//GEN-LAST:event_btnSalvarMouseClicked
 

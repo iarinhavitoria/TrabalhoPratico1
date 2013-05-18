@@ -4,6 +4,8 @@
  */
 package InterfaceUsuario;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,6 +39,8 @@ public class FrmGeral extends javax.swing.JFrame {
         btnVendaEfetuar = new javax.swing.JButton();
         btnVendaListar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        btnUsuarioCadastro = new javax.swing.JButton();
+        btnUsuarioListagem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Vendas");
@@ -104,28 +108,44 @@ public class FrmGeral extends javax.swing.JFrame {
             }
         });
 
+        btnUsuarioCadastro.setText("Cadastro de Usuario");
+        btnUsuarioCadastro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUsuarioCadastroMouseClicked(evt);
+            }
+        });
+
+        btnUsuarioListagem.setText("Listagem de Usuario");
+        btnUsuarioListagem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUsuarioListagemMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(184, 184, 184))
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnVendaEfetuar)
                     .addComponent(btnMetodoCadastro)
                     .addComponent(btnProdutoCadastro)
-                    .addComponent(btnClienteCadastro))
+                    .addComponent(btnClienteCadastro)
+                    .addComponent(btnUsuarioCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClienteListagem)
                     .addComponent(btnProdutoListagem)
                     .addComponent(btnMetodoListagem)
-                    .addComponent(btnVendaListar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(218, 218, 218))
+                    .addComponent(btnVendaListar)
+                    .addComponent(btnUsuarioListagem, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,9 +166,13 @@ public class FrmGeral extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVendaEfetuar)
                     .addComponent(btnVendaListar))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUsuarioCadastro)
+                    .addComponent(btnUsuarioListagem))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(btnSair)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -187,8 +211,15 @@ public class FrmGeral extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMetodoListagemMouseClicked
 
     private void btnClienteListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClienteListagemMouseClicked
-        FrmListagemCliente janela = new FrmListagemCliente();
-        janela.setVisible(true);
+        
+        try {
+            FrmListagemCliente janela;
+            janela = new FrmListagemCliente();
+            janela.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmGeral.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
     }//GEN-LAST:event_btnClienteListagemMouseClicked
 
     private void btnProdutoListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdutoListagemMouseClicked
@@ -200,6 +231,18 @@ public class FrmGeral extends javax.swing.JFrame {
         FrmListagemVenda janela = new FrmListagemVenda();
         janela.setVisible(true);
     }//GEN-LAST:event_btnVendaListarMouseClicked
+
+    private void btnUsuarioCadastroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioCadastroMouseClicked
+        // TODO add your handling code here:
+        FrmCadastroUsuario janela = new FrmCadastroUsuario();
+        janela.setVisible(true);
+    }//GEN-LAST:event_btnUsuarioCadastroMouseClicked
+
+    private void btnUsuarioListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioListagemMouseClicked
+        // TODO add your handling code here:
+        FrmListagemUsuario janela5 = new FrmListagemUsuario();
+        janela5.setVisible(true);
+    }//GEN-LAST:event_btnUsuarioListagemMouseClicked
 
     /**
      * @param args the command line arguments
@@ -244,6 +287,8 @@ public class FrmGeral extends javax.swing.JFrame {
     private javax.swing.JButton btnProdutoCadastro;
     private javax.swing.JButton btnProdutoListagem;
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnUsuarioCadastro;
+    private javax.swing.JButton btnUsuarioListagem;
     private javax.swing.JButton btnVendaEfetuar;
     private javax.swing.JButton btnVendaListar;
     // End of variables declaration//GEN-END:variables

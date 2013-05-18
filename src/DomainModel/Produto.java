@@ -23,6 +23,18 @@ public class Produto {
         this.estoque = est;
     }
 
+    public Produto() {
+        this.codProduto = 0;
+        this.nome = "";
+        this.valorcompra = 0;
+        this.valorvenda = 0;
+        this.estoque = 0;
+    }
+
+    
+
+    
+
     public int getCodProduto() {
         return codProduto;
     }

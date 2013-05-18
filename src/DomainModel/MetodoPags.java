@@ -12,10 +12,17 @@ public class MetodoPags {
     int CodMetodo;
     String nome;
     
-    public MetodoPags(){
-        this.CodMetodo = 0;
-        this.nome ="";
+    public MetodoPags(int i, String string){
+        this.CodMetodo = i;
+        this.nome =string;
     }
+
+    public MetodoPags() {
+        this.CodMetodo = 0;
+        this.nome = "";
+    }
+
+    
 
     public int getCodMetodo() {
         return CodMetodo;

@@ -4,6 +4,10 @@
  */
 package InterfaceUsuario;
 
+import DataAccess.VendaDAO;
+import DomainModel.Venda;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,21 +20,36 @@ public class FrmListagemVenda extends javax.swing.JFrame {
     /**
      * Creates new form FrmListagemVenda
      */
+    VendaDAO dao;
+    
     public FrmListagemVenda() {
         initComponents();
-        configuraTabelaVenda();
+        dao = new VendaDAO();
+        List<Venda> venda = dao.listarTodos();
+        configuraTabelaVenda(venda);
     }
     
-    private void configuraTabelaVenda() {
+    private void configuraTabelaVenda(List<Venda> v) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Codigo");
         model.addColumn("Data da venda");
         model.addColumn("Valor Total");
         model.addColumn("Produto");
         model.addColumn("Estoque");
+        for (Venda ve : v){
+            Vector valor = new Vector();
+            valor.add(0, ve.getCodvenda());
+            valor.add(1, ve.getData());
+            valor.add(2, ve.getValortotal());
+            valor.add(3, ve.getProduto());
+            valor.add(4, ve.getCliente());
+            model.addRow(valor);
+        }
         tblVenda.setModel(model);
+        tblVenda.repaint();
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,9 +79,19 @@ public class FrmListagemVenda extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVendaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblVenda);
 
         btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -110,6 +139,22 @@ public class FrmListagemVenda extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        // TODO add your handling code here:
+        Venda ve = new Venda();
+        
+        
+        List<Venda> ven = dao.buscar(ve);
+        
+        configuraTabelaVenda(ven);
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void tblVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVendaMouseClicked
+        // TODO add your handling code here:
+        Object valor = tblVenda.getValueAt( tblVenda.getSelectedRow(), 0);
+        Venda ve = dao.Abrir((int)valor);
+    }//GEN-LAST:event_tblVendaMouseClicked
 
     /**
      * @param args the command line arguments
